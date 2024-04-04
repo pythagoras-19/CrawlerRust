@@ -7,6 +7,9 @@
 - Parse HTML responses using the `scraper` crate.
 - Extract specific data from the parsed HTML.
 
+### Common links to use 
+- https://www.rust-lang.org/
+
 ## Prerequisites
 
 - Rust 1.54.0 or later
@@ -34,6 +37,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 # TODO
 ## Features
+Add more page types and their MAJOR selectors
+
 Dynamic Scraping Engine: Build a scraping engine capable of handling different website layouts and structures. Use Rust's asynchronous programming features to handle multiple scraping tasks concurrently, efficiently managing resources and network calls.
 
 Content Detection and Extraction: Implement advanced content detection algorithms to extract meaningful information from web pages, such as article texts, authors, publication dates, and images. Consider using machine learning models for more accurate content categorization and extraction.

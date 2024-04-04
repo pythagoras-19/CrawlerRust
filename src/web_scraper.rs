@@ -1,5 +1,6 @@
 use reqwest;
 use scraper::{Html, Selector};
+use crate::page_types::get_page_type_with_major_headings;
 
 pub(crate) struct WebScraper {
     link: String,
@@ -7,6 +8,14 @@ pub(crate) struct WebScraper {
 }
 
 impl WebScraper {
+    pub fn get_selectors(&self) -> &Vec<String> {
+        &self.selectors
+    }
+
+    pub fn get_link(&self) -> &String {
+        &self.link
+    }
+
     pub fn new(link: String, selectors: Vec<String>) -> Self {
         WebScraper {
             link,
@@ -18,7 +27,6 @@ impl WebScraper {
         let body = reqwest::get(&self.link).await?.text().await?;
         let fragment = Html::parse_document(&body);
 
-        // create a selector and extract the data
         for selector_str in &self.selectors {
             let selector = Selector::parse(selector_str).unwrap();
             for element in fragment.select(&selector) {
@@ -27,5 +35,18 @@ impl WebScraper {
             }
         }
         Ok(())
+    }
+
+    pub fn get_major_titles_and_headings(&self, page_type: &str) {
+        let page_type_to_selectors = get_page_type_with_major_headings();
+
+        match page_type_to_selectors.get(page_type) {
+            Some(selectors) => {
+                for selector in selectors {
+                    println!("{}", selector);
+                }
+            },
+            None => println!("No selectors found for the given page type.")
+        }
     }
 }

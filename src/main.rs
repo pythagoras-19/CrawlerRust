@@ -1,5 +1,6 @@
 mod web_scraper;
 mod parser;
+mod page_types;
 
 #[tokio::main]
 async fn main() {
@@ -14,7 +15,6 @@ async fn main() {
     if let Some('\r')= str.chars().next_back() {
         str.pop();
     }
-    println!("You typed: {}", str);
     let selectors = parser::generate_selectors(&str).await.unwrap();
     call_web_scraper(str, selectors).await;
 }
@@ -22,5 +22,13 @@ async fn main() {
 async fn call_web_scraper(link: String, selectors: Vec<String>) {
     let web_scraper =
         web_scraper::WebScraper::new(link, selectors);
+
+    let selectors = web_scraper.get_selectors();
+    let link = web_scraper.get_link();
+    // for s in selectors {
+    //     println!("{}", s);
+    // }
+    // println!("{}", link);
     web_scraper.scrape().await.unwrap();
+    web_scraper.get_major_titles_and_headings("html");
 }
