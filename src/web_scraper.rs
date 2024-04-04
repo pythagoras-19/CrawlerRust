@@ -1,10 +1,8 @@
 use reqwest;
 use scraper::{Html, Selector};
 
-#[tokio::main]
-pub(crate) async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // send http get request
-    let body = reqwest::get("https://www.rust-lang.org/").await?.text().await?;
+pub(crate) async fn main(link: String) -> Result<(), Box<dyn std::error::Error>> {
+    let body = reqwest::get(&link).await?.text().await?;
     let fragment = Html::parse_document(&body);
 
     // create a selector and extract the data
