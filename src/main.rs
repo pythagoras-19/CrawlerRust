@@ -18,5 +18,6 @@ async fn main() {
 }
 
 async fn call_web_scraper(link: String) {
-    web_scraper::main(link).await.unwrap();
+    let web_scraper = web_scraper::WebScraper::new(link);
+    web_scraper.call().await.unwrap();
 }
