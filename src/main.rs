@@ -29,6 +29,10 @@ async fn call_web_scraper(link: String, selectors: Vec<String>) {
     //     println!("{}", s);
     // }
     // println!("{}", link);
-    web_scraper.scrape().await.unwrap();
-    web_scraper.get_major_titles_and_headings("html");
+    web_scraper.scrape_entire_file().await.unwrap();
+    println!("\n\n\n------------------ MAJOR TITLE AND HEADINGS ------------------");
+    println!("----------- THIS CAN BE USED AS AN OUTLINE OF THE PAGE ----------------");
+    if let Err(e) = web_scraper.scrape_major_titles_headings("html").await {
+        println!("Error: {}", e);
+    }
 }

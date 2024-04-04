@@ -23,7 +23,7 @@ impl WebScraper {
         }
     }
 
-    pub async fn scrape(&self) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn scrape_entire_file(&self) -> Result<(), Box<dyn std::error::Error>> {
         let body = reqwest::get(&self.link).await?.text().await?;
         let fragment = Html::parse_document(&body);
 
@@ -37,16 +37,36 @@ impl WebScraper {
         Ok(())
     }
 
-    pub fn get_major_titles_and_headings(&self, page_type: &str) {
+    // pub fn get_major_titles_and_headings(&self, page_type: &str) {
+    //     let page_type_to_selectors = get_page_type_with_major_headings();
+    //
+    //     match page_type_to_selectors.get(page_type) {
+    //         Some(selectors) => {
+    //             for selector in selectors {
+    //                 println!("{}", selector);
+    //             }
+    //         },
+    //         None => println!("No selectors found for the given page type.")
+    //     }
+    // }
+
+    pub async fn scrape_major_titles_headings(&self, page_type: &str) -> Result<(), Box<dyn std::error::Error>> {
+        let body = reqwest::get(&self.link).await?.text().await?;
+        let fragment = Html::parse_document(&body);
         let page_type_to_selectors = get_page_type_with_major_headings();
 
-        match page_type_to_selectors.get(page_type) {
-            Some(selectors) => {
-                for selector in selectors {
-                    println!("{}", selector);
-                }
-            },
-            None => println!("No selectors found for the given page type.")
+        let major_headings = match page_type_to_selectors.get(page_type) {
+            Some(selectors) => selectors,
+            None => return Ok(())
+        };
+
+        for selector_str in major_headings {
+            let selector = Selector::parse((selector_str).as_str()).unwrap();
+            for element in fragment.select(&selector) {
+                let text = element.text().collect::<Vec<_>>();
+                println!("{:?}", text);
+            }
         }
+        Ok(())
     }
 }
