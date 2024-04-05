@@ -1,6 +1,7 @@
 mod web_scraper;
 mod parser;
 mod page_types;
+mod text_analysis;
 
 #[tokio::main]
 async fn main() {

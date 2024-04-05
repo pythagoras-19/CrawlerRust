@@ -1,5 +1,16 @@
 # CrawlerRust
 
+## Bugs
+- `torch-sys` bug
+  - run `cargo build` to see the error
+  - **Solutions:**
+    - option 1: Grind and fix the error ( 1hr )
+    - option 2: Remove the `torch-sys` dependency (10min)
+    - option 3: Use a different crate that doesn't have this issue (2 hrs)
+    - option 4: step away from this dependency and focus smaller (like writing our own algorithm to summarize articles) (3 hrs)
+## Goals Summary
+- Summarize web pages quickly and easily using Rust.
+- Stretch: Summarize multiple web pages in parallel
 
 ## Features
 
