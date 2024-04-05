@@ -26,14 +26,15 @@ async fn call_web_scraper(link: String, selectors: Vec<String>) {
 
     let selectors = web_scraper.get_selectors();
     let link = web_scraper.get_link();
-    // for s in selectors {
-    //     println!("{}", s);
-    // }
-    // println!("{}", link);
     web_scraper.scrape_entire_file().await.unwrap();
     println!("\n\n\n------------------ MAJOR TITLE AND HEADINGS ------------------");
     println!("----------- THIS CAN BE USED AS AN OUTLINE OF THE PAGE ----------------");
     if let Err(e) = web_scraper.scrape_major_titles_headings("html").await {
+        println!("Error: {}", e);
+    }
+    println!("\n\n\n------------------ PARAGRAPH CONTENT ------------------");
+    println!("----------- THIS CAN BE USED AS AN OUTLINE OF THE PAGE ----------------");
+    if let Err(e) = web_scraper.scrape_non_heading_content("html").await {
         println!("Error: {}", e);
     }
 }

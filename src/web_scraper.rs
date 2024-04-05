@@ -1,6 +1,6 @@
 use reqwest;
 use scraper::{Html, Selector};
-use crate::page_types::get_page_type_with_major_headings;
+use crate::page_types::{get_paragraph_content, get_page_type_with_major_headings};
 
 pub(crate) struct WebScraper {
     link: String,
@@ -60,13 +60,31 @@ impl WebScraper {
             None => return Ok(())
         };
 
-        for selector_str in major_headings {
+        self.print_content_to_console(major_headings.to_vec(), fragment);
+        Ok(())
+    }
+
+    pub async fn scrape_non_heading_content(&self, page_type: &str) -> Result<(), Box<dyn std::error::Error>> {
+        let body = reqwest::get(&self.link).await?.text().await?;
+        let fragment = Html::parse_document(&body);
+        let page_type_to_selectors = get_paragraph_content();
+
+        let paragraph_content = match page_type_to_selectors.get(page_type) {
+            Some(selectors) => selectors,
+            None => return Ok(())
+        };
+
+        self.print_content_to_console(paragraph_content.to_vec(), fragment);
+        Ok(())
+    }
+
+    pub fn print_content_to_console(&self, content: Vec<String>, fragment:scraper::Html) {
+        for selector_str in content {
             let selector = Selector::parse((selector_str).as_str()).unwrap();
             for element in fragment.select(&selector) {
                 let text = element.text().collect::<Vec<_>>();
                 println!("{:?}", text);
             }
         }
-        Ok(())
     }
 }

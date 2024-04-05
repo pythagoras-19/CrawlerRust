@@ -17,3 +17,10 @@ pub fn get_page_type_with_major_headings() -> HashMap<String, Vec<String>> {
     // TODO: Add more page types and their MAJOR selectors
     page_type_to_selectors
 }
+
+pub fn get_paragraph_content() -> HashMap<String, Vec<String>> {
+    let mut page_type_to_selectors: HashMap<String, Vec<String>> = HashMap::new();
+    page_type_to_selectors.insert("html".to_string(), vec!["p".to_string()]);
+
+    page_type_to_selectors
+}
