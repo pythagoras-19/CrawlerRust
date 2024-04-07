@@ -25,7 +25,7 @@ impl WebScraper {
             selectors,
         }
     }
-
+    #[allow(dead_code)]
     pub async fn scrape_entire_file(&self) -> Result<(), Box<dyn std::error::Error>> {
         let body = reqwest::get(&self.link).await?.text().await?;
         let fragment = Html::parse_document(&body);
@@ -102,11 +102,11 @@ impl WebScraper {
             for element in fragment.select(&selector) {
                 if selector_str == "img" {
                     if let Some(src) = element.value().attr("src") {
-                        /**
+                        /*
                             ERROR HANDLING:
                             Only executes if element.value().attr("src")
                             is Some(value).If it's None, the code here will be skipped!
-                        **/
+                        */
                         println!("{:?}", src);
                     } else {
                         println!("{}", "No src attribute found!".red());

@@ -1,6 +1,7 @@
 use colored::*;
-use log::{info, LevelFilter};
+use log:: {info, LevelFilter};
 use env_logger;
+use tokio::time::Instant;
 
 mod web_scraper;
 mod parser;
@@ -13,7 +14,7 @@ async fn main() {
         .filter(None, LevelFilter::Info)
         .init();
 
-    info!("Starting ==RUSTCRAWLER==...");
+    info!("Starting ==RUST CRAWLER==...");
 
 
     use std::io::{stdin,stdout,Write};

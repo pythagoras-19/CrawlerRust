@@ -26,10 +26,10 @@ pub fn get_page_type_with_image_content() -> HashMap<String, Vec<String>> {
 
     page_type_to_selectors
 }
-
+#[allow(dead_code)]
 pub fn get_page_type_with_next_page_link() -> HashMap<String, String> {
-    let page_type_selectors: HashMap<String, String> = HashMap::new();
+    let page_type_to_selectors: HashMap<String, String> = HashMap::new();
     //TODO: FINISH ME
 
-    page_type_selectors
+    page_type_to_selectors
 }

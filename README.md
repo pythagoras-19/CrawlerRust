@@ -48,6 +48,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 # TODO
 ## Features
+- GET https://crates.io/crates/rust-bert up and running for analysis
+
 Add more page types and their MAJOR selectors
 
 Dynamic Scraping Engine: Build a scraping engine capable of handling different website layouts and structures. Use Rust's asynchronous programming features to handle multiple scraping tasks concurrently, efficiently managing resources and network calls.
