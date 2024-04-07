@@ -82,6 +82,10 @@ impl WebScraper {
         Ok(())
     }
 
+    /**
+        TODO: ADD Pagination: Follow links and scrape that content also
+    **/
+
     pub fn print_content_to_console(&self, content: Vec<String>, fragment: scraper::Html) {
         for selector_str in content {
             let selector = Selector::parse((selector_str).as_str()).unwrap();
@@ -97,8 +101,16 @@ impl WebScraper {
             let selector = Selector::parse((selector_str).as_str()).unwrap();
             for element in fragment.select(&selector) {
                 if selector_str == "img" {
-                    let src = element.value().attr("src").unwrap();
-                    println!("{:?}", src);
+                    if let Some(src) = element.value().attr("src") {
+                        /**
+                            ERROR HANDLING:
+                            Only executes if element.value().attr("src")
+                            is Some(value).If it's None, the code here will be skipped!
+                        **/
+                        println!("{:?}", src);
+                    } else {
+                        println!("{}", "No src attribute found!".red());
+                    }
                 } else {
                     println!("{}", "No image to show!".red());
                 }

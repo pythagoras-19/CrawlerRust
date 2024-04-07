@@ -1,4 +1,7 @@
 use colored::*;
+use log::{info, trace, warn, LevelFilter};
+use env_logger;
+
 mod web_scraper;
 mod parser;
 mod page_types;
@@ -6,12 +9,19 @@ mod text_analysis;
 
 #[tokio::main]
 async fn main() {
+    env_logger::Builder::new()
+        .filter(None, LevelFilter::Info)
+        .init();
+
+    info!("Starting ==RUSTCRAWLER==...");
+
+
     use std::io::{stdin,stdout,Write};
     let mut str =String::new();
     for i in 0..3 {
         println!("{}", "<=====================================================================>".yellow());
     }
-    print!("{}", "<===========> Please enter a website: ".bright_green().bold());
+    print!("{}", "<===========> Enter a website: ".bright_green().bold());
     let _=stdout().flush();
     stdin().read_line(&mut str).expect("Did not enter a correct string");
     if let Some('\n')= str.chars().next_back() {
