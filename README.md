@@ -12,7 +12,7 @@
 - Summarize web pages quickly and easily using Rust.
 - Stretch: Summarize multiple web pages in parallel
 
-## Features
+### Features
 
 - Send HTTP GET requests using the `reqwest` crate.
 - Parse HTML responses using the `scraper` crate.
