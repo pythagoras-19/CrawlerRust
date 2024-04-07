@@ -1,5 +1,5 @@
 use colored::*;
-use log::{info, trace, warn, LevelFilter};
+use log::{info, LevelFilter};
 use env_logger;
 
 mod web_scraper;
@@ -18,7 +18,7 @@ async fn main() {
 
     use std::io::{stdin,stdout,Write};
     let mut str =String::new();
-    for i in 0..3 {
+    for _i in 0..3 {
         println!("{}", "<=====================================================================>".yellow());
     }
     print!("{}", "<===========> Enter a website: ".bright_green().bold());
@@ -39,8 +39,8 @@ async fn call_web_scraper(link: String, selectors: Vec<String>) {
     let web_scraper =
         web_scraper::WebScraper::new(link, selectors);
 
-    let selectors = web_scraper.get_selectors();
-    let link = web_scraper.get_link();
+    let _selectors = web_scraper.get_selectors();
+    let _link = web_scraper.get_link();
     // web_scraper.scrape_entire_file().await.unwrap();
     println!("{}", "------------------ MAJOR TITLE AND HEADINGS ------------------".yellow());
     println!("{}", "----------- THIS CAN BE USED AS AN OUTLINE OF THE PAGE ----------------".yellow());
